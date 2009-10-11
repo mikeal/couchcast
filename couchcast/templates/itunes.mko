@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" version="2.0">
+    <channel>
+        <title>${podcast['title']}</title>
+        <link>${podcast['site_link']}</link>
+        <description>${podcast['description']}</description>
+        <language>en</language>
+        <pubDate>Sun, 11 Oct 2009 11:22:45 -0700</pubDate>
+        <lastBuildDate>Sun, 11 Oct 2009 11:22:45 -0700</lastBuildDate>
+        <itunes:author>${podcast['author']}</itunes:author>
+% if podcast['explicit']:
+        <itunes:explicit>yes</itunes:explicit>
+% else:
+        <itunes:explicit>no</itunes:explicit>
+% endif
+        <itunes:owner>
+            <itunes:name>${podcast['author']}</itunes:name>
+            <itunes:email>${podcast['author_email']}</itunes:email>
+        </itunes:owner>
+        <itunes:block>no</itunes:block>
+% for tag in podcast['tags']:        
+        <itunes:category text="${tag}"/>
+% endfor
+
+% for item in podcast['items']:
+        <item>
+            <title>${item['title']}</title>
+% if 'article_link' in item:
+            <link>${item['article_link']}</link>
+% endif
+            <description><![CDATA[${item['description']}]]></description>
+            <pubDate>Sun, 11 Oct 2009 11:22:12 -0700</pubDate>
+            <enclosure url="${item['attachment']['uri']}" length="${item['attachment']['length']}" type="${item['attachment']['content_type']}"/>
+            <guid isPermaLink="false">${item['title']}</guid>
+            <itunes:author>${podcast['author']}</itunes:author>
+            <itunes:subtitle>${item['title']}</itunes:subtitle>
+            <itunes:summary>${item['description']}</itunes:summary>
+% if podcast['explicit']:
+            <itunes:explicit>yes</itunes:explicit>
+% else:
+            <itunes:explicit>no</itunes:explicit>
+% endif        
+        </item>
+% endfor
+    </channel>
+</rss>
