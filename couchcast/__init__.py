@@ -1,6 +1,7 @@
 import os, sys
 from datetime import datetime
 
+import iso8601
 from couchquery import Database
 from webenv import HtmlResponse
 from webenv.rest import RestApplication
@@ -60,6 +61,8 @@ class PodcastApplication(RestApplication):
                                 (item._attachments[i], i,) for i in item._attachments.keys() if
                                 item._attachments[i].get('content_type') == 'audio/mpeg'][0]                                
             item.attachment['uri'] = self.db.uri+item['_id']+'/'+item.attachment['filename']
+            item.pubdt = iso8601.parse_date(item.couchcast_pubdatetime)
+        
         podcast = {'title':self.title, 'description':self.description, 'site_link':self.site_link,
                    'author':self.author, 'author_email':self.author_email, 'explicit':self.explicit,
                    'tags':self.tags, 'items':items,

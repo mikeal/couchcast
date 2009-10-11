@@ -5,8 +5,8 @@
         <link>${podcast['site_link']}</link>
         <description>${podcast['description']}</description>
         <language>en</language>
-        <pubDate>Sun, 11 Oct 2009 11:46:12 -0700</pubDate>
-        <lastBuildDate>Sun, 11 Oct 2009 11:46:12 -0700</lastBuildDate>
+        <pubDate>${podcast['items'][-1]['couchcast_pubdatetime']}</pubDate>
+        <lastBuildDate>${podcast['items'][0]['couchcast_pubdatetime']}</lastBuildDate>
 % for item in podcast['items']:
         <item>
             <title>${item['title']}</title>
@@ -14,7 +14,7 @@
             <link>${item['article_link']}</link>
 % endif
             <description><![CDATA[${item['description']}]]></description>
-            <pubDate>Sun, 11 Oct 2009 11:22:12 -0700</pubDate>
+            <pubDate>${item['couchcast_pubdatetime']}</pubDate>
             <enclosure url="${item['attachment']['uri']}" length="${item['attachment']['length']}" type="${item['attachment']['content_type']}"/>
             <guid isPermaLink="false">${item['title']}</guid>
         </item>
